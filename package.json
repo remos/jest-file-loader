@@ -1,0 +1,7 @@
+{
+  "name": "jest-file-loader",
+  "description": "A jest transformer similar to webpack's file-loader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
