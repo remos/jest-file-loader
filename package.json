@@ -3,5 +3,15 @@
   "description": "A jest transformer similar to webpack's file-loader",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/remos/jest-file-loader#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remos/jest-file-loader.git"
+  },
+  "files": [
+    "index.js",
+    "package.json",
+    "README.md"
+  ]
 }
