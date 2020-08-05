@@ -1,4 +1,5 @@
 const path = require('path');
+const slash = require('slash');
 
 function createTransformer(transformOptions) {
     const esModule = 
@@ -8,7 +9,7 @@ function createTransformer(transformOptions) {
 
     return {
         process(src, filename, config, options) {
-            const exportedPath = JSON.stringify(path.relative(config.rootDir, filename));
+            const exportedPath = JSON.stringify(slash(path.relative(config.rootDir, filename)));
     
             return `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`;
         }
