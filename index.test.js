@@ -18,44 +18,90 @@ jest.mock('path', ()=>{
     };
 });
 
-test('expected default behaviour', ()=>{
-    const transformer = createTransformer();
-
-    mockMode = 'posix';
-    expect(transformer.process('', testPosixPath, {
-        rootDir: testPosixRoot
-    })).toBe('module.exports = "dir/test/file.png";');
-
-    mockMode = 'win32';
-    expect(transformer.process('', testWin32Path, {
-        rootDir: testWin32Root
-    })).toBe('module.exports = "dir/test/file.png";');
+describe('For jest versions < 27', ()=> {
+    test('expected default behaviour', ()=>{
+        const transformer = createTransformer();
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            rootDir: testPosixRoot
+        })).toBe('module.exports = "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            rootDir: testWin32Root
+        })).toBe('module.exports = "dir/test/file.png";');
+    });
+    
+    test('expected explicate commonJS behaviour', ()=>{
+        const transformer = createTransformer({esModule: false});
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            rootDir: testPosixRoot
+        })).toBe('module.exports = "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            rootDir: testWin32Root
+        })).toBe('module.exports = "dir/test/file.png";');
+    });
+    
+    test('expected esModule behaviour', ()=>{
+        const transformer = createTransformer({esModule: true});
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            rootDir: testPosixRoot
+        })).toBe('export default "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            rootDir: testWin32Root
+        })).toBe('export default "dir/test/file.png";');
+    });
 });
 
-test('expected explicate commonJS behaviour', ()=>{
-    const transformer = createTransformer({esModule: false});
-
-    mockMode = 'posix';
-    expect(transformer.process('', testPosixPath, {
-        rootDir: testPosixRoot
-    })).toBe('module.exports = "dir/test/file.png";');
-
-    mockMode = 'win32';
-    expect(transformer.process('', testWin32Path, {
-        rootDir: testWin32Root
-    })).toBe('module.exports = "dir/test/file.png";');
-});
-
-test('expected esModule behaviour', ()=>{
-    const transformer = createTransformer({esModule: true});
-
-    mockMode = 'posix';
-    expect(transformer.process('', testPosixPath, {
-        rootDir: testPosixRoot
-    })).toBe('export default "dir/test/file.png";');
-
-    mockMode = 'win32';
-    expect(transformer.process('', testWin32Path, {
-        rootDir: testWin32Root
-    })).toBe('export default "dir/test/file.png";');
+describe('For jest versions >= 27', ()=> {
+    test('expected default behaviour', ()=>{
+        const transformer = createTransformer();
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            config: {rootDir: testPosixRoot}
+        })).toBe('module.exports = "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            config: {rootDir: testWin32Root}
+        })).toBe('module.exports = "dir/test/file.png";');
+    });
+    
+    test('expected explicate commonJS behaviour', ()=>{
+        const transformer = createTransformer({esModule: false});
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            config: {rootDir: testPosixRoot}
+        })).toBe('module.exports = "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            config: {rootDir: testWin32Root}
+        })).toBe('module.exports = "dir/test/file.png";');
+    });
+    
+    test('expected esModule behaviour', ()=>{
+        const transformer = createTransformer({esModule: true});
+    
+        mockMode = 'posix';
+        expect(transformer.process('', testPosixPath, {
+            config: {rootDir: testPosixRoot}
+        })).toBe('export default "dir/test/file.png";');
+    
+        mockMode = 'win32';
+        expect(transformer.process('', testWin32Path, {
+            config: {rootDir: testWin32Root}
+        })).toBe('export default "dir/test/file.png";');
+    });
 });

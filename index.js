@@ -8,8 +8,9 @@ function createTransformer(transformOptions) {
         : false;
 
     return {
-        process(src, filename, config, options) {
-            const exportedPath = JSON.stringify(slash(path.relative(config.rootDir, filename)));
+        process(src, filename, options) {
+            const rootDir = options.rootDir || options.config.rootDir;
+            const exportedPath = JSON.stringify(slash(path.relative(rootDir, filename)));
     
             return `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`;
         }
