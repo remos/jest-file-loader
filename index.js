@@ -13,7 +13,7 @@ function createTransformer(transformOptions) {
             const exportedPath = JSON.stringify(slash(path.relative(rootDir, filename)));
     
             return {
-                code: `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`;
+                code: `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`
             };
         }
     }
