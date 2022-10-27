@@ -12,7 +12,9 @@ function createTransformer(transformOptions) {
             const rootDir = options.rootDir || options.config.rootDir;
             const exportedPath = JSON.stringify(slash(path.relative(rootDir, filename)));
     
-            return `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`;
+            return {
+                code: `${esModule ? 'export default' : 'module.exports ='} ${exportedPath};`;
+            };
         }
     }
 }
